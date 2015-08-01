@@ -7,15 +7,8 @@ ply=7
 den=0.08
 
 function _init()
-  rectfill(0, 0, 127, 127, 0)
-  
-		for i=0,15 do
-  		for j=0,15 do
-    		if rnd(1) < den then
-		    		rectfill(i*8,j*8,i*8+7,j*8+7, 11)		    
-   		 end
-  		end
-		end
+  cls()
+  map(0,0,0,0,16,16)
 end
 
 function clamp(val,minv,maxv)
