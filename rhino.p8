@@ -23,7 +23,11 @@ end
 
 function _update()
   movep()
-  mover()
+end
+
+function checkmv(x,y)
+  nspr=mget(x,y)
+  return not fget(nspr, 0)
 end
 
 function movep()
@@ -34,10 +38,10 @@ function movep()
   nplx=clamp(nplx, 0, 15)
   nply=clamp(nply, 0, 15)
 
-  nspr=mget(nplx,nply)
-  if (not fget(nspr, 0)) then
+if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
     plx=nplx
     ply=nply
+    mover()
   end
   if (fget(nspr,3)) then
     win=win+1
@@ -49,6 +53,14 @@ function movep()
 end
 
 function mover()
+  dx=plx-rx
+  if(dx>0) then dx=dx/dx end
+  if(dx<0) then dx=dx/-dx end
+  dy=ply-ry
+  if(dy>0) then dy=dy/dy end
+  if(dy<0) then dy=dy/-dy end
+  rx=rx+dx
+  ry=ry+dy
 end
 
 function _draw()
