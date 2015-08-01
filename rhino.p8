@@ -2,10 +2,10 @@ pico-8 cartridge // http://www.pico-8.com
 version 4
 __lua__
 --globals
-plx=7
+plx=6
 ply=7
-oplx=0
-oply=0
+oplx=plx
+oply=ply
 den=0.08
 
 function _init()
