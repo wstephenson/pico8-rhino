@@ -10,7 +10,8 @@ nspr=0
 rx=0
 ry=15
 den=0.08
-win=0
+wins=0
+losses=0
 
 function _init()
   cls()
@@ -38,18 +39,33 @@ function movep()
   nplx=clamp(nplx, 0, 15)
   nply=clamp(nply, 0, 15)
 
-if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
+  if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
     plx=nplx
     ply=nply
     mover()
   end
   if (fget(nspr,3)) then
-    win=win+1
-    plx=6
-    nplx=plx
-    ply=7
-    nply=ply 
+    win()
   end
+end  
+
+function win()
+  wins=wins+1
+  reset()
+end
+
+function lose()
+  losses=losses+1
+  reset()
+end
+
+function reset()  
+  plx=6
+  nplx=plx
+  ply=7
+  nply=ply 
+  rx=0
+  ry=15
 end
 
 function mover()
@@ -62,6 +78,7 @@ function mover()
   if(checkmv(rx+dx,ry+dy)) then
     rx=rx+dx
     ry=ry+dy
+    if(rx==plx and ry==ply) then lose() end
   end
 end
 
@@ -75,7 +92,7 @@ function _draw()
   spr(1,rx*8,ry*8)
   --debug coords
   rectfill(0,0,63,8,0)
-  print(plx..","..ply.."/"..nplx..","..nply.."-"..win,0,0,3)
+  print(plx..","..ply.."/"..nplx..","..nply..":"..wins.."-"..losses,0,0,3)
 end
 __gfx__
 0000000000888088b333b3330f0000f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
