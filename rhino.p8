@@ -7,6 +7,8 @@ ply=7
 nplx=plx
 nply=ply
 nspr=0
+rx=0
+ry=15
 den=0.08
 win=0
 
@@ -20,6 +22,11 @@ function clamp(val,minv,maxv)
 end  
 
 function _update()
+  movep()
+  mover()
+end
+
+function movep()
 	 if (btnp(0)) then nplx=plx-1 nply=ply end
 	 if (btnp(1)) then nplx=plx+1 nply=ply end
 	 if (btnp(2)) then nply=ply-1 nplx=plx end
@@ -41,12 +48,17 @@ function _update()
   end
 end
 
+function mover()
+end
+
 function _draw()
   cls()
   --background
   map(0,0,0,0,16,16)
   --player
   spr(3, plx*8, ply*8)
+  --rhino
+  spr(1,rx*8,ry*8)
   --debug coords
   rectfill(0,0,63,8,0)
   print(plx..","..ply.."/"..nplx..","..nply.."-"..win,0,0,3)
