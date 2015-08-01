@@ -59,8 +59,10 @@ function mover()
   dy=ply-ry
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
-  rx=rx+dx
-  ry=ry+dy
+  if(checkmv(rx+dx,ry+dy)) then
+    rx=rx+dx
+    ry=ry+dy
+  end
 end
 
 function _draw()
