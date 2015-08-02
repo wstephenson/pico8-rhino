@@ -2,13 +2,13 @@ pico-8 cartridge // http://www.pico-8.com
 version 4
 __lua__
 --globals
-plx=6
-ply=7
+plx=0
+ply=0
 nplx=plx
 nply=ply
 nspr=0
 rx=0
-ry=15
+ry=0
 wins=0
 losses=0
 --map
@@ -34,11 +34,38 @@ function mkmap()
       mset(i+mrx,j+mry,mspr)
     end
   end
+  plcexit()
+end
+
+function getfreecoords()
+  good=false
+  while(not good) do
+    x=flr(rnd(15))
+    y=flr(rnd(15))
+    if(mget(mrx+x,mry+y)==0) good=true
+  end
+  return x,y
+end
+
+function plcplyr()
+  plx,ply=getfreecoords()  
+  nplx=plx
+  nply=ply
+end
+
+function plcexit()
+  x,y=getfreecoords()
+  mset(mrx+x,mry+y,4)
+end
+
+function plcrhino()
+  rx,xy=getfreecoords()
 end
 
 -- game logic
 function win()
   wins=wins+1
+  mkmap()
   reset()
 end
 
@@ -48,12 +75,8 @@ function lose()
 end
 
 function reset()
-  plx=6
-  nplx=plx
-  ply=7
-  nply=ply
-  rx=0
-  ry=15
+  plcplyr()
+  plcrhino()
 end
 
 -- movement
@@ -98,6 +121,7 @@ end
 function _init()
   cls()
   mkmap()
+  reset()
 end
 
 function _update()
@@ -113,8 +137,7 @@ function _draw()
   --rhino
   spr(1,rx*8,ry*8)
   --debug coords
-  rectfill(0,0,63,8,0)
-  print(plx..","..ply.."/"..nplx..","..nply..":"..wins.."-"..losses,0,0,3)
+  print(plx..","..ply.."/"..nplx..","..nply..":"..wins.."-"..losses,0,0,10)
 end
 __gfx__
 0000000000888088b333b3330f0000f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
