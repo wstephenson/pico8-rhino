@@ -2,19 +2,21 @@ pico-8 cartridge // http://www.pico-8.com
 version 4
 __lua__
 --globals
-plx=0
-ply=0
-nplx=plx
-nply=ply
+p={}
+p.x=0
+p.y=0
+p.nx=p.x
+p.ny=p.y
 nspr=0
-rx=0
-ry=0
+r={}
+r.x=0
+r.y=0
 wins=0
 losses=0
 --map
 mrx=16
 mry=0
-den=0.15
+den=0.3
 
 -- general
 function clamp(val,minv,maxv)
@@ -48,9 +50,9 @@ function getfreecoords()
 end
 
 function plcplyr()
-  plx,ply=getfreecoords()  
-  nplx=plx
-  nply=ply
+  p.x,p.y=getfreecoords()  
+  p.nx=p.x
+  p.ny=p.y
 end
 
 function plcexit()
@@ -59,7 +61,7 @@ function plcexit()
 end
 
 function plcrhino()
-  rx,xy=getfreecoords()
+  r.x,r.y=getfreecoords()
 end
 
 -- game logic
@@ -86,16 +88,16 @@ function checkmv(x,y)
 end
 
 function movep()
-	 if (btnp(0)) then nplx=plx-1 nply=ply end
-	 if (btnp(1)) then nplx=plx+1 nply=ply end
-	 if (btnp(2)) then nply=ply-1 nplx=plx end
-	 if (btnp(3)) then nply=ply+1 nplx=plx end
-  nplx=clamp(nplx, 0, 15)
-  nply=clamp(nply, 0, 15)
+	 if (btnp(0)) then p.nx=p.x-1 p.ny=p.y end
+	 if (btnp(1)) then p.nx=p.x+1 p.ny=p.y end
+	 if (btnp(2)) then p.ny=p.y-1 p.nx=p.x end
+	 if (btnp(3)) then p.ny=p.y+1 p.nx=p.x end
+  p.nx=clamp(p.nx, 0, 15)
+  p.ny=clamp(p.ny, 0, 15)
 
-  if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
-    plx=nplx
-    ply=nply
+  if (checkmv(p.nx,p.ny) and (p.nx~=p.x or p.ny~=p.y)) then
+    p.x=p.nx
+    p.y=p.ny
     mover()
   end
   if (fget(nspr,3)) then
@@ -104,16 +106,16 @@ function movep()
 end  
 
 function mover()
-  dx=plx-rx
+  dx=p.x-r.x
   if(dx>0) then dx=dx/dx end
   if(dx<0) then dx=dx/-dx end
-  dy=ply-ry
+  dy=p.y-r.y
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
-  if(checkmv(rx+dx,ry+dy)) then
-    rx=rx+dx
-    ry=ry+dy
-    if(rx==plx and ry==ply) then lose() end
+  if(checkmv(r.x+dx,r.y+dy)) then
+    r.x=r.x+dx
+    r.y=r.y+dy
+    if(r.x==p.x and r.y==p.y) then lose() end
   end
 end
 
@@ -133,11 +135,11 @@ function _draw()
   --background
   map(mrx,mry,0,0,16,16)
   --player
-  spr(3, plx*8, ply*8)
+  spr(3, p.x*8, p.y*8)
   --rhino
-  spr(1,rx*8,ry*8)
+  spr(1,r.x*8,r.y*8)
   --debug coords
-  print(plx..","..ply.."/"..nplx..","..nply..":"..wins.."-"..losses,0,0,10)
+  print(p.x..","..p.y.."/"..p.nx..","..p.ny..":"..wins.."-"..losses,0,0,10)
 end
 __gfx__
 0000000000888088b333b3330f0000f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
