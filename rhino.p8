@@ -13,41 +13,15 @@ den=0.08
 wins=0
 losses=0
 
-function _init()
-  cls()
-  map(0,0,0,0,16,16)
-end
-
 function clamp(val,minv,maxv)
   return max(minv,min(val,maxv))
 end  
-
-function _update()
-  movep()
-end
 
 function checkmv(x,y)
   nspr=mget(x,y)
   return not fget(nspr, 0)
 end
 
-function movep()
-	 if (btnp(0)) then nplx=plx-1 nply=ply end
-	 if (btnp(1)) then nplx=plx+1 nply=ply end
-	 if (btnp(2)) then nply=ply-1 nplx=plx end
-	 if (btnp(3)) then nply=ply+1 nplx=plx end
-  nplx=clamp(nplx, 0, 15)
-  nply=clamp(nply, 0, 15)
-
-  if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
-    plx=nplx
-    ply=nply
-    mover()
-  end
-  if (fget(nspr,3)) then
-    win()
-  end
-end  
 
 function win()
   wins=wins+1
@@ -68,6 +42,24 @@ function reset()
   ry=15
 end
 
+function movep()
+	 if (btnp(0)) then nplx=plx-1 nply=ply end
+	 if (btnp(1)) then nplx=plx+1 nply=ply end
+	 if (btnp(2)) then nply=ply-1 nplx=plx end
+	 if (btnp(3)) then nply=ply+1 nplx=plx end
+  nplx=clamp(nplx, 0, 15)
+  nply=clamp(nply, 0, 15)
+
+  if (checkmv(nplx,nply) and (nplx~=plx or nply~=ply)) then
+    plx=nplx
+    ply=nply
+    mover()
+  end
+  if (fget(nspr,3)) then
+    win()
+  end
+end  
+
 function mover()
   dx=plx-rx
   if(dx>0) then dx=dx/dx end
@@ -81,6 +73,16 @@ function mover()
     if(rx==plx and ry==ply) then lose() end
   end
 end
+
+function _init()
+  cls()
+  map(0,0,0,0,16,16)
+end
+
+function _update()
+  movep()
+end
+
 
 function _draw()
   cls()
