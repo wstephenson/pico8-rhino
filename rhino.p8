@@ -71,6 +71,7 @@ end
 -- game logic
 function win()
   wins=wins+1
+  swall=8+(wins%4)
   mkmap()
   reset()
 end
@@ -83,7 +84,6 @@ end
 function reset()
   plcplyr()
   plcrhino()
-  swall=8+(wins+losses)%4
 end
 
 -- movement
