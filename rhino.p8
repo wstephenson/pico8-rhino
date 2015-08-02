@@ -9,7 +9,7 @@ p.s=true
 r={}
 r.x=0
 r.y=0
-r.dmv=false
+r.candmv=false
 r.canchg=false
 r.bored=0
 r.brlim=5
@@ -163,7 +163,7 @@ function rnormalmv()
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
   -- add charge mv sel
-  if(r.dmv and checkmv(r.x+dx,r.y+dy)) then
+  if(r.candmv and checkmv(r.x+dx,r.y+dy)) then
     r.x=r.x+dx
     r.y=r.y+dy
     r.spr=rnorm
