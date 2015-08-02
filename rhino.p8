@@ -11,6 +11,7 @@ p.ny=p.y
 r={}
 r.x=0
 r.y=0
+r.dmv=false
 wins=0
 losses=0
 --sprites
@@ -126,7 +127,7 @@ function mover()
   local dy=p.y-r.y
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
-  if(checkmv(r.x+dx,r.y+dy)) then
+  if(r.dmv and checkmv(r.x+dx,r.y+dy)) then
     r.x=r.x+dx
     r.y=r.y+dy
   else
