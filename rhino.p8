@@ -9,7 +9,7 @@ p.s=true
 r={}
 r.x=0
 r.y=0
-r.dmv=false
+r.dmv=true
 wins=0
 losses=0
 --sprites
