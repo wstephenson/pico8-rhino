@@ -11,6 +11,5 @@
 
 Maintenance
 * Clean indentation and whitespace
-* Use local vars
 
 

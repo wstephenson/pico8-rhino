@@ -32,7 +32,7 @@ end
 
 -- map
 function mkmap()
-  mspr = 0
+  local mspr = 0
   for i=0,15 do
     for j=0,15 do
       if rnd(1)<den then
@@ -47,11 +47,12 @@ function mkmap()
 end
 
 function getfreecoords()
-  good=false
-  while(not good) do
+  local x,y
+  local gdmv=false
+  while(not gdmv) do
     x=flr(rnd(15))
     y=flr(rnd(15))
-    if(mget(mrx+x,mry+y)==0) good=true
+    if(mget(mrx+x,mry+y)==0) gdmv=true
   end
   return x,y
 end
@@ -63,7 +64,7 @@ function plcplyr()
 end
 
 function plcexit()
-  x,y=getfreecoords()
+  local x,y=getfreecoords()
   mset(mrx+x,mry+y,sxit)
 end
 
@@ -119,10 +120,10 @@ function movep()
 end  
 
 function mover()
-  dx=p.x-r.x
+  local dx=p.x-r.x
   if(dx>0) then dx=dx/dx end
   if(dx<0) then dx=dx/-dx end
-  dy=p.y-r.y
+  local dy=p.y-r.y
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
   if(checkmv(r.x+dx,r.y+dy)) then
