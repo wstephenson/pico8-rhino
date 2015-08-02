@@ -10,6 +10,7 @@ r={}
 r.x=0
 r.y=0
 r.dmv=false
+r.canchg=false
 r.bored=0
 r.brlim=5
 r.chgvc=-1
@@ -178,7 +179,7 @@ function rnormalmv()
         r.spr=rnorm
         r.bored=0
       else
-        r.bored=r.bored+1
+        if (r.canchg) r.bored=r.bored+1
         if(r.bored>(r.brlim*0.66)) then
           r.spr=rangry
         end
