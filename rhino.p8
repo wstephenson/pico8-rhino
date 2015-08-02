@@ -91,7 +91,7 @@ function checkmv(x,y)
   return not fget(nspr,0)
 end
 
-function haswon()
+function reachedexit()
   local nspr=mget(mrx+p.x,mry+p.y)
   return fget(nspr,3)
 end
@@ -112,7 +112,7 @@ function movep()
     p.s=not p.s
     mover()
   end
-  if (haswon()) then
+  if (reachedexit()) then
     win()
   end
 end  
