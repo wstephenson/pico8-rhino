@@ -2,7 +2,6 @@
 * Rhino will make random possible moves when blocked
 * Player and rhino state animations
 * Rhino boredom and charge
-* Player diagonal moves
 * Sound
 * Better score/lives/level logic
 * Different block tiles on different levels

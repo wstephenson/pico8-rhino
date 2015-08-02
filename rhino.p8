@@ -99,10 +99,10 @@ end
 function movep()
   local nx=p.x
   local ny=p.y
-	 if (btnp(0)) then nx=p.x-1 ny=p.y end
-	 if (btnp(1)) then nx=p.x+1 ny=p.y end
-	 if (btnp(2)) then ny=p.y-1 nx=p.x end
-	 if (btnp(3)) then ny=p.y+1 nx=p.x end
+	 if (btnp(0)) then nx=p.x-1 end
+	 if (btnp(1)) then nx=p.x+1 end
+	 if (btnp(2)) then ny=p.y-1 end
+	 if (btnp(3)) then ny=p.y+1 end
   nx=clamp(nx, 0, 15)
   ny=clamp(ny, 0, 15)
 
