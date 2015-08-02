@@ -9,20 +9,17 @@ nply=ply
 nspr=0
 rx=0
 ry=15
-den=0.08
 wins=0
 losses=0
+--map
+den=0.08
 
+-- general
 function clamp(val,minv,maxv)
   return max(minv,min(val,maxv))
-end  
-
-function checkmv(x,y)
-  nspr=mget(x,y)
-  return not fget(nspr, 0)
 end
 
-
+-- game logic
 function win()
   wins=wins+1
   reset()
@@ -33,13 +30,19 @@ function lose()
   reset()
 end
 
-function reset()  
+function reset()
   plx=6
   nplx=plx
   ply=7
-  nply=ply 
+  nply=ply
   rx=0
   ry=15
+end
+
+-- movement
+function checkmv(x,y)
+  nspr=mget(x,y)
+  return not fget(nspr, 0)
 end
 
 function movep()
@@ -74,6 +77,7 @@ function mover()
   end
 end
 
+-- pico8 callbacks
 function _init()
   cls()
   map(0,0,0,0,16,16)
