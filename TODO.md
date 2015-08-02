@@ -1,7 +1,6 @@
 * Attract mode
 * Rhino will make random possible moves when blocked
 * Player and rhino state animations
-* Rhino boredom and charge
 * Sound
 * Better score/lives/level logic
 * Exit reachability check
