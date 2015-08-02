@@ -129,8 +129,16 @@ function mover()
   if(checkmv(r.x+dx,r.y+dy)) then
     r.x=r.x+dx
     r.y=r.y+dy
-    if(r.x==p.x and r.y==p.y) then lose() end
+  else
+    if(checkmv(r.x+dx,r.y)) then
+      r.x=r.x+dx
+    else
+      if(checkmv(r.x,r.y+dy)) then
+        r.y=r.y+dy
+      end
+    end
   end
+  if(r.x==p.x and r.y==p.y) then lose() end
 end
 
 -- pico8 callbacks

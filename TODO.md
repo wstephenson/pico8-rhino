@@ -1,5 +1,4 @@
 * Attract mode
-* Rhino will move vertically when possible
 * Rhino will make random possible moves when blocked
 * Player and rhino state animations
 * Rhino boredom and charge
