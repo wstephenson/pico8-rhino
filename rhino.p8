@@ -107,8 +107,9 @@ end
 
 -- movement
 function checkmv(x,y)
+  local inbounds=x>=0 and x<=15 and y>=0 and y<=15
   local nspr=mget(mrx+x,mry+y)
-  return not fget(nspr,0)
+  return inbounds and not fget(nspr,0)
 end
 
 function reachedexit()
