@@ -10,6 +10,10 @@ r={}
 r.x=0
 r.y=0
 r.dmv=true
+r.bored=0
+r.brlim=5
+r.chgvc=-1
+r.chgdz=2
 wins=0
 losses=0
 --sprites
@@ -96,7 +100,7 @@ function reachedexit()
   local nspr=mget(mrx+p.x,mry+p.y)
   return fget(nspr,3)
 end
-  
+
 function movep()
   local nx=p.x
   local ny=p.y
@@ -116,26 +120,37 @@ function movep()
   if (reachedexit()) then
     win()
   end
-end  
+end
 
 function mover()
+  -- refactor into normal mv sel
   local dx=p.x-r.x
   if(dx>0) then dx=dx/dx end
   if(dx<0) then dx=dx/-dx end
   local dy=p.y-r.y
   if(dy>0) then dy=dy/dy end
   if(dy<0) then dy=dy/-dy end
+  -- add charge mv sel
   if(r.dmv and checkmv(r.x+dx,r.y+dy)) then
     r.x=r.x+dx
     r.y=r.y+dy
+    r.bored=0
   else
     if(checkmv(r.x+dx,r.y)) then
       r.x=r.x+dx
+      r.bored=0
     else
       if(checkmv(r.x,r.y+dy)) then
         r.y=r.y+dy
+        r.bored=0
+      else
+        r.bored=r.bored+1
       end
     end
+  end
+  if (r.bored>r.brlim) then
+    -- choose charge vec
+    -- charge in random direction
   end
   if(r.x==p.x and r.y==p.y) then lose() end
 end
@@ -148,6 +163,7 @@ function _init()
 end
 
 function _update()
+  --unless rhino charging
   movep()
 end
 
@@ -161,7 +177,7 @@ function _draw()
   --rhino
   spr(r.spr,r.x*8,r.y*8)
   --debug coords
-  print(p.x..","..p.y..":"..wins.."-"..losses,0,0,10)
+  print(r.bored..","..r.brlim..":"..wins.."-"..losses,0,0,10)
 end
 __gfx__
 000000000f0000f00f0000f000000000000000000000000000000000000000000333b33000b3350000000000000b100000000000000000000000000000000000
