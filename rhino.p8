@@ -21,7 +21,9 @@ smpty=0
 swall=8
 sxit=16
 p.spr=1
-r.spr=24
+rnorm=24
+rangry=25
+r.spr=rnorm
 --map
 mrx=16
 mry=0
@@ -102,6 +104,7 @@ end
 
 function reset()
   plcplyr()
+  r.spr=rnorm
   plcrhino()
 end
 
@@ -162,17 +165,23 @@ function rnormalmv()
   if(r.dmv and checkmv(r.x+dx,r.y+dy)) then
     r.x=r.x+dx
     r.y=r.y+dy
+    r.spr=rnorm
     r.bored=0
   else
     if(dx~=0 and checkmv(r.x+dx,r.y)) then
       r.x=r.x+dx
+      r.spr=rnorm
       r.bored=0
     else
       if(dy~=0 and checkmv(r.x,r.y+dy)) then
         r.y=r.y+dy
+        r.spr=rnorm
         r.bored=0
       else
         r.bored=r.bored+1
+        if(r.bored>(r.brlim*0.66)) then
+          r.spr=rangry
+        end
       end
     end
   end
