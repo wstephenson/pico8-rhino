@@ -6,8 +6,6 @@ p={}
 p.x=0
 p.y=0
 p.s=true
-p.nx=p.x
-p.ny=p.y
 r={}
 r.x=0
 r.y=0
@@ -20,7 +18,6 @@ swall=8
 sxit=16
 p.spr=1
 r.spr=24
-
 --map
 mrx=16
 mry=0
@@ -60,8 +57,6 @@ end
 
 function plcplyr()
   p.x,p.y=getfreecoords()  
-  p.nx=p.x
-  p.ny=p.y
 end
 
 function plcexit()
@@ -102,16 +97,18 @@ function haswon()
 end
   
 function movep()
-	 if (btnp(0)) then p.nx=p.x-1 p.ny=p.y end
-	 if (btnp(1)) then p.nx=p.x+1 p.ny=p.y end
-	 if (btnp(2)) then p.ny=p.y-1 p.nx=p.x end
-	 if (btnp(3)) then p.ny=p.y+1 p.nx=p.x end
-  p.nx=clamp(p.nx, 0, 15)
-  p.ny=clamp(p.ny, 0, 15)
+  local nx=p.x
+  local ny=p.y
+	 if (btnp(0)) then nx=p.x-1 ny=p.y end
+	 if (btnp(1)) then nx=p.x+1 ny=p.y end
+	 if (btnp(2)) then ny=p.y-1 nx=p.x end
+	 if (btnp(3)) then ny=p.y+1 nx=p.x end
+  nx=clamp(nx, 0, 15)
+  ny=clamp(ny, 0, 15)
 
-  if (checkmv(p.nx,p.ny) and (p.nx~=p.x or p.ny~=p.y)) then
-    p.x=p.nx
-    p.y=p.ny
+  if (checkmv(nx,ny) and (nx~=p.x or ny~=p.y)) then
+    p.x=nx
+    p.y=ny
     p.s=not p.s
     mover()
   end
