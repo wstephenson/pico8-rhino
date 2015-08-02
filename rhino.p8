@@ -101,6 +101,10 @@ function reachedexit()
   return fget(nspr,3)
 end
 
+function playereaten()
+  return (r.x==p.x and r.y==p.y)
+end
+
 function movep()
   local nx=p.x
   local ny=p.y
@@ -123,7 +127,15 @@ function movep()
 end
 
 function mover()
-  -- refactor into normal mv sel
+  if(r.chgvc == -1) then
+    rnormalmv()
+  else
+    rchargemv()
+  end
+  if(playereaten()) lose()
+end
+
+function rnormalmv()
   local dx=p.x-r.x
   if(dx>0) then dx=dx/dx end
   if(dx<0) then dx=dx/-dx end
@@ -149,10 +161,13 @@ function mover()
     end
   end
   if (r.bored>r.brlim) then
+    -- clear bored flag
     -- choose charge vec
     -- charge in random direction
   end
-  if(r.x==p.x and r.y==p.y) then lose() end
+end
+
+function rchargemv()
 end
 
 -- pico8 callbacks
