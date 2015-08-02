@@ -11,7 +11,6 @@
 
 Maintenance
 * Clean indentation and whitespace
-* Get rid of global var nspr
 * Use local vars
 
 
