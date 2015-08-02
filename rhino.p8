@@ -12,11 +12,28 @@ ry=15
 wins=0
 losses=0
 --map
-den=0.08
+mrx=16
+mry=0
+den=0.15
 
 -- general
 function clamp(val,minv,maxv)
   return max(minv,min(val,maxv))
+end
+
+-- map
+function mkmap()
+  mspr = 0
+  for i=0,15 do
+    for j=0,15 do
+      if rnd(1)<den then
+        mspr=2
+      else
+        mspr=0
+      end
+      mset(i+mrx,j+mry,mspr)
+    end
+  end
 end
 
 -- game logic
@@ -41,7 +58,7 @@ end
 
 -- movement
 function checkmv(x,y)
-  nspr=mget(x,y)
+  nspr=mget(mrx+x,mry+y)
   return not fget(nspr, 0)
 end
 
@@ -80,18 +97,17 @@ end
 -- pico8 callbacks
 function _init()
   cls()
-  map(0,0,0,0,16,16)
+  mkmap()
 end
 
 function _update()
   movep()
 end
 
-
 function _draw()
   cls()
   --background
-  map(0,0,0,0,16,16)
+  map(mrx,mry,0,0,16,16)
   --player
   spr(3, plx*8, ply*8)
   --rhino
