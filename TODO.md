@@ -1,4 +1,3 @@
-* Attract mode
 * Player and rhino state animations
 * Sound
 * Better score/lives/level logic
