@@ -18,7 +18,7 @@ r.brlim=5
 r.chgvc=-1
 r.chgdz=2
 wins=0
-losses=0
+hi=0
 --sprites
 smpty=0
 swall=8
@@ -105,6 +105,7 @@ function lose()
   p.lives=p.lives-1
   if (p.lives==0) then
     sfx(5)
+    if(wins > hi) hi=wins
     attract=true
   else
     sfx(7)
@@ -271,8 +272,9 @@ function _draw()
   cls()
   if(attract) then
     map(0,0,0,-12,16,16)
-    print("z to start (easy)",28,108)
-    print("x to start",28,114)
+    print("z to start (easy)",28,108,10)
+    print("x to start",28,114,10)
+    print("hi:"..hi,0,0,10)
   else
     map(mrx,mry,0,0,16,16)
     if(p.s) then p.spr=1 else p.spr=2 end
