@@ -278,7 +278,7 @@ function _draw()
     if(p.s) then p.spr=1 else p.spr=2 end
   		spr(p.spr, p.x*8, p.y*8)
 		  spr(r.spr,r.x*8,r.y*8)
-  		print(r.bored..","..r.brlim..","..r.chgdz..":"..wins.."-"..losses,0,0,10)
+  		print(wins,0,0,10)
   		for i=128-6,128-(6*p.lives),-6 do
   		  spr(32,i,0)
   		end
