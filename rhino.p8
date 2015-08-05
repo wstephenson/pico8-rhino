@@ -246,9 +246,17 @@ end
 
 function _update()
   if(attract)then
-    if(btn(4) or btn(5))then
+    if(btn(4))then
+      r.canchg=false
+      r.candmv=false
       attract=false
       reset()
+    else if btn(5)then
+      r.canchg=true
+      r.candmv=true
+      attract=false
+      reset()
+    end
     end
   else
  		 if(r.chgvc==-1)then
