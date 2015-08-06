@@ -2,13 +2,16 @@ pico-8 cartridge // http://www.pico-8.com
 version 4
 __lua__
 --globals
-attract=true
-minstartdist=10
+g={}
+g.attract=true
+g.mindist=10
+g.hi=0
 p={}
 p.x=0
 p.y=0
 p.s=true
 p.lives=4
+p.wins=0
 r={}
 r.x=0
 r.y=0
@@ -18,8 +21,6 @@ r.bored=0
 r.brlim=5
 r.chgvc=-1
 r.chgdz=2
-wins=0
-hi=0
 --sprites
 smpty=0
 swall=8
@@ -101,13 +102,13 @@ end
 
 -- game logic
 function win()
-  wins=wins+1
-  if((wins-4)%4==0 and p.lives<10) then
+  p.wins=p.wins+1
+  if((p.wins-4)%4==0 and p.lives<10) then
     sfx(8) p.lives=p.lives+1
   else  
     sfx(4)
   end
-  swall=8+(wins%4)
+  swall=8+(p.wins%4)
   mkmap()
   reset()
 end
@@ -116,8 +117,8 @@ function lose()
   p.lives=p.lives-1
   if (p.lives==0) then
     sfx(5)
-    if(wins > hi) hi=wins
-    attract=true
+    if(p.wins > g.hi)g.hi=p.wins
+    g.attract=true
   else
     sfx(7)
   end
@@ -129,7 +130,7 @@ function reset()
   while(isbad)do
     plcplyr()
     plcrhino()
-    isbad = dist(p,r)<minstartdist
+    isbad = dist(p,r)<g.mindist
   end
   r.spr=rnorm
 end
@@ -261,16 +262,16 @@ function _init()
 end
 
 function _update()
-  if(attract)then
+  if(g.attract)then
     if(btn(4))then      
       r.canchg=false
       r.candmv=false
-      attract=false
+      g.attract=false
       reset()
     else if btn(5)then
       r.canchg=true
       r.candmv=true
-      attract=false
+      g.attract=false
       reset()
     end
     end
@@ -285,17 +286,17 @@ end
 
 function _draw()
   cls()
-  if(attract) then
+  if(g.attract) then
     map(0,0,0,-12,16,16)
     print("z to start (easy)",28,108,10)
     print("x to start",28,114,10)
-    print("hi:"..hi,0,0,10)
+    print("hi:"..g.hi,0,0,10)
   else
     map(mrx,mry,0,0,16,16)
     if(p.s) then p.spr=1 else p.spr=2 end
   		spr(p.spr, p.x*8, p.y*8)
 		  spr(r.spr,r.x*8,r.y*8)
-  		print(wins,0,0,10)
+  		print(p.wins,0,0,10)
   		for i=128-6,128-(6*p.lives),-6 do
   		  spr(32,i,0)
   		end
