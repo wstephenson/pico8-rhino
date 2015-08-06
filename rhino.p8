@@ -264,11 +264,13 @@ end
 function _update()
   if(g.attract)then
     if(btn(4))then      
+      g.mindist=10
       r.canchg=false
       r.candmv=false
       g.attract=false
       reset()
     else if btn(5)then
+      g.mindist=7
       r.canchg=true
       r.candmv=true
       g.attract=false
