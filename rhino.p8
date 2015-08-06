@@ -1,6 +1,8 @@
 pico-8 cartridge // http://www.pico-8.com
 version 4
 __lua__
+--Escape the Rhino!
+--vim: set ft=lua:
 --globals
 g={}
 g.attract=true
