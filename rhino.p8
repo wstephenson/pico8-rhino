@@ -3,6 +3,7 @@ version 4
 __lua__
 --globals
 attract=true
+minstartdist=10
 p={}
 p.x=0
 p.y=0
@@ -50,6 +51,12 @@ function vc2rc(vc)
   if(vc==6) x=-1 y=0
   if(vc==7) x=-1 y=-1
   return x,y
+end
+
+function dist(p,q)
+  local xsum=p.x-q.x
+  local ysum=p.y-q.y
+  return sqrt(xsum*xsum+ysum*ysum)
 end
 
 -- map
@@ -118,9 +125,13 @@ function lose()
 end
 
 function reset()
-  plcplyr()
+  local isbad=true
+  while(isbad)do
+    plcplyr()
+    plcrhino()
+    isbad = dist(p,r)<minstartdist
+  end
   r.spr=rnorm
-  plcrhino()
 end
 
 -- movement
@@ -251,7 +262,7 @@ end
 
 function _update()
   if(attract)then
-    if(btn(4))then
+    if(btn(4))then      
       r.canchg=false
       r.candmv=false
       attract=false
